@@ -11,13 +11,13 @@ const BlogItem = props => {
     <Link className="link" to={`/blogs/${id}`}>
       <div className="blogItem-container">
         <div className="img-container">
-          <img src={imageUrl} className="image" />
+          <img src={imageUrl} className="image" alt="" />
         </div>
         <div className="details-conatiner">
           <p className="topic">{topic}</p>
           <h1 className="title">{title}</h1>
           <div className="profile-container">
-            <img src={avatarUrl} className="profile" />
+            <img src={avatarUrl} className="profile" alt="profile" />
             <p className="topic">{author}</p>
           </div>
         </div>

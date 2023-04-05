@@ -1,8 +1,11 @@
 // Write your JS code here
 import {Component} from 'react'
+import Loader from 'react-loader-spinner'
+
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
 class BlogItemDetails extends Component {
-  state = {blog: {}}
+  state = {blog: {}, isLoading: true}
 
   componentDidMount() {
     this.fetchBlog()
@@ -16,7 +19,7 @@ class BlogItemDetails extends Component {
     // console.log(id)
     const response = await fetch(`https://apis.ccbp.in/blogs/${id}`)
     const data = await response.json()
-    console.log(response.statuscode)
+    // console.log(response.statuscode)
     const blogDetails = {
       id: data.id,
       author: data.author,
@@ -26,30 +29,37 @@ class BlogItemDetails extends Component {
       topic: data.topic,
       content: data.content,
     }
+    this.setState({blog: blogDetails, isLoading: false})
+  }
 
-    const renderBlog = () => {
-      this.setState({blog: blogDetails})
-      const {blog} = this.state
-      const {author, avatarUrl, title, imageUrl, topic, content} = blog
-      return (
+  renderBlog = () => {
+    const {blog} = this.state
+    const {author, avatarUrl, title, imageUrl, topic, content} = blog
+    return (
+      <div>
+        <h1>{title}</h1>
         <div>
-          <h1>{title}</h1>
-          <div>
-            <img src={avatarUrl} alt="avatar" />
-            <p>{author}</p>
-          </div>
-          <div>
-            <img src={imageUrl} alt="imagedetail" />s<p>{content}</p>
-          </div>
+          <img src={avatarUrl} alt="avatar" />
+          <p>{author}</p>
         </div>
-      )
-    }
+        <div>
+          <img src={imageUrl} alt="imagedetail" />s<p>{content}</p>
+        </div>
+      </div>
+    )
   }
 
   render() {
-    console.log('triggered')
-    return <h1>hii</h1>
+    const {isLoading} = this.state
+    return (
+      <div>
+        {isLoading ? (
+          <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />
+        ) : (
+          this.renderBlog()
+        )}
+      </div>
+    )
   }
 }
-
 export default BlogItemDetails
