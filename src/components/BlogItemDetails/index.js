@@ -1,6 +1,7 @@
 // Write your JS code here
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
+import './index.css'
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
@@ -34,16 +35,17 @@ class BlogItemDetails extends Component {
 
   renderBlog = () => {
     const {blog} = this.state
-    const {author, avatarUrl, title, imageUrl, topic, content} = blog
+    const {author, avatarUrl, title, imageUrl, content} = blog
     return (
-      <div>
-        <h1>{title}</h1>
-        <div>
-          <img src={avatarUrl} alt="avatar" />
-          <p>{author}</p>
+      <div className="blog-container">
+        <h1 className="blog-title">{title}</h1>
+        <div className="profile-container">
+          <img src={avatarUrl} alt="profile" className="profile" />
+          <p className="topic">{author}</p>
         </div>
         <div>
-          <img src={imageUrl} alt="imagedetail" />s<p>{content}</p>
+          <img src={imageUrl} alt={title} className="full-image" />
+          <p className="content">{content}</p>
         </div>
       </div>
     )
@@ -51,6 +53,7 @@ class BlogItemDetails extends Component {
 
   render() {
     const {isLoading} = this.state
+    console.log('trigger')
     return (
       <div>
         {isLoading ? (
